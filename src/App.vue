@@ -109,6 +109,7 @@ import { randomLenNum } from '@/util/util'
       refreshCode() {
         this.loginForm.code = ''
         this.loginForm.randomStr = randomLenNum(this.code.len, true)
+        console.log(this.code.len+','+this.loginForm.randomStr)
         console.log(this.code.type)
         console.log(`${this.codeUrl}/${this.loginForm.randomStr}`)
         this.code.type == 'text'
