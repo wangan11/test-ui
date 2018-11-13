@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import ElementUI from 'element-ui'
-
+import { mapGetters } from "vuex";
 
 Vue.use(ElementUI)
 Vue.config.productionTip = false

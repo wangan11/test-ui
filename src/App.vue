@@ -39,11 +39,37 @@
 </template>
 
 <script>
-  import HelloWorld from './components/HelloWorld'
 
+
+  // import HelloWorld from './components/HelloWorld'
+  // import { randomLenNum } from '@/util/util'
+
+/*  const randomLenNum = (len, date) => {
+    let random = ''
+    random = Math.ceil(Math.random() * 100000000000000).toString().substr(0, typeof len === 'number' ? len : 4)
+    if (date) random = random + Date.now()
+    return random
+  }*/
+
+  import {mapGetters} from 'vuex'
+import { randomLenNum } from '@/util/util'
+  import {
+    codeUrl
+  } from '@/config/env'
+
+  // console.log(codeUrl)
   export default {
     name: 'App',
     data() {
+      const validateCode = (rule, value, callback) => {
+        if (this.code.value != value) {
+          this.loginForm.code = ''
+          this.refreshCode()
+          callback(new Error('请输入正确的验证码'))
+        } else {
+          callback()
+        }
+      }
       return {
         loginForm: {
           username: 'admin',
@@ -83,6 +109,8 @@
       refreshCode() {
         this.loginForm.code = ''
         this.loginForm.randomStr = randomLenNum(this.code.len, true)
+        console.log(this.code.type)
+        console.log(`${this.codeUrl}/${this.loginForm.randomStr}`)
         this.code.type == 'text'
           ? (this.code.value = randomLenNum(this.code.len))
           : (this.code.src = `${this.codeUrl}/${this.loginForm.randomStr}`)
